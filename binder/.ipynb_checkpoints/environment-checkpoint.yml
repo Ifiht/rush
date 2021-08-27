@@ -1,0 +1,11 @@
+name: cljsh
+channels:
+  - conda-forge
+dependencies:
+  - pandas
+  - numpy
+  - keras
+  - openjdk
+  - gcc_linux-64
+  - gxx_linux-64
+  - ruby=2.7.*

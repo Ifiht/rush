@@ -1,0 +1,3 @@
+[submodule "irb"]
+	path = irb
+	url = https://github.com/ruby/irb.git
