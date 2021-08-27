@@ -116,4 +116,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$HOME/bin/jruby-9.2.19.0/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
