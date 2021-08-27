@@ -119,6 +119,9 @@ fi
 PS1="${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u\[\033[00m\]@\[\033[01;34m\]notebook\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
 
 export PATH="$HOME/bin:$PATH"
+export JRUBY_HOME="$HOME/bin/jruby-head"
+export JAVA_HOME="/srv/conda/envs/notebook"
+
 alias ll='ls -al'
 alias l='ls -a'
 conda activate
