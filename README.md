@@ -8,3 +8,5 @@ Ruby Shell
 - https://github.com/ruby/irb
 - https://github.com/zsh-users/zsh-syntax-highlighting
 - https://zsh.sourceforge.io/Doc/Release/zsh_toc.html
+- https://github.com/matti/runcmd-cli/blob/master/lib/runcmd/cli/record_command.rb
+

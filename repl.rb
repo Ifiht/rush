@@ -47,15 +47,18 @@ char *lsh_read_line(void)
 def readline8
     position = 0
     buffer = []
-    while true
+    continue = true
+    while continue
         c = STDIN.getch
         if (c == '\n' || c == '\r')
             buffer[position] = '\n'
+            continue = false
             return buffer
             break
         else
             buffer[position] = c
         end
+        STDIN.iflush
         print buffer.join.to_s
         position += 1
     end
