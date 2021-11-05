@@ -9,4 +9,4 @@ Ruby Shell
 - https://github.com/zsh-users/zsh-syntax-highlighting
 - https://zsh.sourceforge.io/Doc/Release/zsh_toc.html
 - https://github.com/matti/runcmd-cli/blob/master/lib/runcmd/cli/record_command.rb
-
+- https://brennan.io/2015/01/16/write-a-shell-in-c/
