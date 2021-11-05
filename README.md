@@ -6,4 +6,5 @@ Ruby Shell
 ### Dependencies:
 
 - https://github.com/ruby/irb
-
+- https://github.com/zsh-users/zsh-syntax-highlighting
+- https://zsh.sourceforge.io/Doc/Release/zsh_toc.html
