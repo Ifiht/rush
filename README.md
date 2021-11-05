@@ -2,3 +2,8 @@
 
 # rush
 Ruby Shell
+
+### Dependencies:
+
+- https://github.com/ruby/irb
+
