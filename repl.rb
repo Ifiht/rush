@@ -22,7 +22,21 @@ n=2 clears entire line
 
 =end
 
-def readline8
+def preprint8(buffer)
+    working_string = buffer.join
+    str_array = working_string.split
+    i = str_array.count
+    n = 0
+    for s in str_array do
+        if s == "red"
+            str_array[n] = s.colorize(:red)
+        end
+        n = n+1
+    end
+    return str_array.join(" ")
+end
+
+def console8
     position = 0
     buffer = []
     loop do
@@ -31,7 +45,7 @@ def readline8
         buffer[position] = c
         STDOUT.print "\u001b[2K"     # Clear the current line
         STDOUT.print "\u001b[1000D"  # Reset cursor position to the left
-        STDOUT.print buffer.join     # re-print the string buffer
+        STDOUT.print preprint8(buffer)     # re-print the string buffer
         position += 1
     end
     print "\n"
@@ -39,7 +53,7 @@ end
 
 
 stdin_thr = Thread.new do
-    readline8
+    console8
 end
 
 rows, columns = STDIN.winsize
