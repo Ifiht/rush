@@ -22,30 +22,35 @@ n=2 clears entire line
 
 =end
 
-def preprint8(buffer)
+$user_prompt = "=> "
+
+def parser8(buffer)
     working_string = buffer.join
     str_array = working_string.split
     i = str_array.count
-    n = 0
     for s in str_array do
         if s == "red"
-            str_array[n] = s.colorize(:red)
+            working_string.sub!(s, s.colorize(:red))
         end
-        n = n+1
     end
-    return str_array.join(" ")
+    return working_string
 end
 
+
 def console8
+    prompt_len = $user_prompt.length
     position = 0
     buffer = []
+    STDOUT.print $user_prompt
     loop do
+        clear = prompt_len + buffer.count + 10
         c = STDIN.getch
-        break if (c == "\n" || c == "\r" || c == "f")
+        break if (c == "\n" || c == "\r")
         buffer[position] = c
-        STDOUT.print "\u001b[2K"     # Clear the current line
-        STDOUT.print "\u001b[1000D"  # Reset cursor position to the left
-        STDOUT.print preprint8(buffer)     # re-print the string buffer
+        STDOUT.print "\u001b[2K"         # Clear from cursor to end of line
+        STDOUT.print "\u001b[#{clear}D"  # Reset cursor position to the left
+        STDOUT.print $user_prompt
+        STDOUT.print parser8(buffer)     # re-print the string buffer
         position += 1
     end
     print "\n"
