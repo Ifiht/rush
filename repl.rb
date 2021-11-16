@@ -24,7 +24,7 @@ n=2 clears entire line
 
 $user_prompt = "=> "
 
-def parser8(buffer)
+def preprocess8(buffer)
     working_string = buffer.join
     str_array = working_string.split
     i = str_array.count
@@ -33,6 +33,17 @@ def parser8(buffer)
             working_string.sub!(s, s.colorize(:red))
         end
     end
+    return working_string
+end
+
+
+def postprocess8(buffer)
+    working_string = buffer.join
+    blob_array = working_string.split(/(?<!\\)[|><]{1}/) # Split string on IO bondaries ("|", ">", "<")
+    blob_array.each do |b|
+        b.split(/\b/)
+    end
+    
     return working_string
 end
 
@@ -50,10 +61,11 @@ def console8
         STDOUT.print "\u001b[2K"         # Clear from cursor to end of line
         STDOUT.print "\u001b[#{clear}D"  # Reset cursor position to the left
         STDOUT.print $user_prompt
-        STDOUT.print parser8(buffer)     # re-print the string buffer
+        STDOUT.print preprocess8(buffer)     # re-print the string buffer
         position += 1
     end
     print "\n"
+    postprocess8(buffer)
 end
 
 
