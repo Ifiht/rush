@@ -66,6 +66,7 @@ def console8
     prompt_len = $user_prompt.length
     position = 0
     buffer = []
+    breakout = false
     STDOUT.print $user_prompt
     loop do
         clear = prompt_len + buffer.count + 10
@@ -79,15 +80,28 @@ def console8
         position += 1
     end
     print "\n"
-    postprocess8(buffer)
+    working_string = buffer.join.to_s
+    #postprocess8(buffer)
+    system(buffer.join.to_s)
+    if working_string.match(/(^|\s)exit($|\s)/)
+        breakout = true
+    end
+    return breakout
 end
 
 
 stdin_thr = Thread.new do
-    console8
+    loop do
+        breakout = console8
+        if breakout
+            break
+        end
+    end
 end
+
 
 rows, columns = STDIN.winsize
 puts "Your screen is #{columns} wide and #{rows} tall"
+
 
 stdin_thr.join
