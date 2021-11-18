@@ -1,3 +1,4 @@
+require "benchmark/ips"
 require 'io/console'
 require 'colorize'
 =begin
@@ -20,6 +21,11 @@ n=0 clears from cursor to end of line
 n=1 clears from cursor to start of line
 n=2 clears entire line
 
+====[ UNICODE LOOKUP TABLE ]====
+---------+----------------------
+\u000A   | Newline "\n"
+\u000D   | Carriage Return "\r"
+================================
 =end
 
 $user_prompt = "=> "
@@ -71,12 +77,13 @@ def console8
     loop do
         clear = prompt_len + buffer.count + 10
         c = STDIN.getch
-        break if (c == "\n" || c == "\r")
+        csym = c.to_sym
+        break if (csym == :"\u000A" || csym == :"\u000D") # Use symbol comparison rather than string
         buffer[position] = c
-        STDOUT.print "\u001b[2K"         # Clear from cursor to end of line
-        STDOUT.print "\u001b[#{clear}D"  # Reset cursor position to the left
+        STDOUT.print "\u001b[2K"           # Clear from cursor to end of line
+        STDOUT.print "\u001b[#{clear}D"    # Reset cursor position to the left
         STDOUT.print $user_prompt
-        STDOUT.print preprocess8(buffer)     # re-print the string buffer
+        STDOUT.print preprocess8(buffer)   # re-print the string buffer
         position += 1
     end
     print "\n"
@@ -98,6 +105,19 @@ stdin_thr = Thread.new do
         end
     end
 end
+
+
+def fast
+end
+
+def slow
+end
+
+#Benchmark.ips do |x|
+#  x.report("fast code description") { fast }
+#  x.report("slow code description") { slow }
+#  x.compare!
+#end
 
 
 rows, columns = STDIN.winsize
