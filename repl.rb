@@ -24,6 +24,20 @@ n=2 clears entire line
 
 $user_prompt = "=> "
 
+
+def verifycmd(cmdstr)
+    fullpath = %[ "which #{cmdstr}]
+    if fullpath.length > 0
+        return true
+    elsif fullpath.length == 0
+        return false
+    else
+        puts "negative length string in verifycmd()"
+        return false
+    end
+end
+
+
 def preprocess8(buffer)
     working_string = buffer.join
     str_array = working_string.split
@@ -39,7 +53,7 @@ end
 
 def postprocess8(buffer)
     working_string = buffer.join
-    blob_array = working_string.split(/(?<!\\)[|><]{1}/) # Split string on IO bondaries ("|", ">", "<")
+    blob_array = working_string.split(/(?<!\\)([|><]{1})/) # Split string on IO bondaries, including the separators ("|", ">", "<")
     blob_array.each do |b|
         b.split(/\b/)
     end
